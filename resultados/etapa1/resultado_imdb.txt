@@ -1,0 +1,46 @@
+
+[FASE 3] Avaliação
+
+   === Conjunto de teste (7419 textos) ===
+   Acurácia: 0.888   (linha de base, sempre a classe mais comum: 0.501)
+              precision    recall  f1-score   support
+
+    negativo      0.908     0.865     0.886      3715
+    positivo      0.870     0.912     0.891      3704
+
+    accuracy                          0.888      7419
+   macro avg      0.889     0.888     0.888      7419
+weighted avg      0.889     0.888     0.888      7419
+
+   Matriz de confusão (linhas = real, colunas = previsto)
+          prev neg  prev pos
+real neg      3212       503
+real pos       326      3378
+
+   === Críticas de cinema coletadas (50 textos) ===
+   Acurácia: 0.620   (linha de base, sempre a classe mais comum: 0.560)
+              precision    recall  f1-score   support
+
+    negativo      0.667     0.273     0.387        22
+    positivo      0.610     0.893     0.725        28
+
+    accuracy                          0.620        50
+   macro avg      0.638     0.583     0.556        50
+weighted avg      0.635     0.620     0.576        50
+
+   Matriz de confusão (linhas = real, colunas = previsto)
+          prev neg  prev pos
+real neg         6        16
+real pos         3        25
+
+   Queda de desempenho do teste para o mundo real: +0.268
+   (uma queda grande indica diferença de domínio entre os dados de treino e as críticas)
+
+   Exemplos de erros (útil para a discussão do trabalho):
+   - nan | nota nan/nan | P(positivo)=0.40
+   - nan | nota nan/nan | P(positivo)=0.75
+   - nan | nota nan/nan | P(positivo)=0.77
+   - nan | nota nan/nan | P(positivo)=0.54
+   - nan | nota nan/nan | P(positivo)=0.80
+
+   Previsões de todas as críticas salvas em dados/previsoes_criticas.csv

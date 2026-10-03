@@ -1,0 +1,96 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790461522.282162   47955 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1790461522.295543   47955 cuda_fft.cc:470] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+I0000 00:00:1790461522.306554   47955 cuda_dnn.cc:6964] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+I0000 00:00:1790461522.310299   47955 cuda_blas.cc:1416] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1790461522.316990   47955 collection_registry.cc:88] Trying to register 2 metrics with the same name: /coordination_service/agent/enabled. The old value will be erased in order to register a new one. Please check if you link the metric more than once, or if the name is already used by other metrics.
+W0000 00:00:1790461522.320351   47955 computation_placer.cc:184] Computation placer creation function is already registered for this platform
+W0000 00:00:1790461522.320362   47955 computation_placer.cc:184] Computation placer creation function is already registered for this platform
+W0000 00:00:1790461522.320363   47955 computation_placer.cc:184] Computation placer creation function is already registered for this platform
+W0000 00:00:1790461522.320364   47955 computation_placer.cc:184] Computation placer creation function is already registered for this platform
+I0000 00:00:1790461522.325628   47955 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1790461525.410052   47955 gpu_device.cc:2043] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 2155 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3050 Laptop GPU, pci bus id: 0000:01:00.0, compute capability: 8.6
+
+   Cenário: imdb — Treino só no IMDB PT-BR (traduzido)
+   Treino: 34,446 textos | Validação: 3,000
+   Composição do treino por fonte:
+      IMDB PT-BR: 34,446
+   Conjuntos de teste:
+      IMDB PT-BR (teste): 3,000 textos (50% positivos)
+      AdoroCinema (teste): 169 textos (73% positivos)
+      Papo de Cinema (teste): 916 textos (65% positivos)
+      Ouro: Rapadura + Omelete: 50 textos (56% positivos)
+Model: "sequential"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ text_vectorization              │ (None, 300)            │             0 │
+│ (TextVectorization)             │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ embedding (Embedding)           │ (None, 300, 64)        │     1,280,000 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ bidirectional (Bidirectional)   │ (None, 128)            │        66,048 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 32)             │         4,128 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 1)              │            33 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,350,209 (5.15 MB)
+ Trainable params: 1,350,209 (5.15 MB)
+ Non-trainable params: 0 (0.00 B)
+Epoch 1/15
+I0000 00:00:1790461529.569297   48003 cuda_dnn.cc:461] Loaded cuDNN version 92600
+1077/1077 - 19s - 18ms/step - accuracy: 0.8316 - loss: 0.3739 - val_accuracy: 0.8897 - val_loss: 0.2539
+Epoch 2/15
+1077/1077 - 17s - 16ms/step - accuracy: 0.9221 - loss: 0.2023 - val_accuracy: 0.8853 - val_loss: 0.2894
+Epoch 3/15
+1077/1077 - 17s - 16ms/step - accuracy: 0.9529 - loss: 0.1284 - val_accuracy: 0.8620 - val_loss: 0.3887
+Epoch 4/15
+1077/1077 - 17s - 15ms/step - accuracy: 0.9654 - loss: 0.0985 - val_accuracy: 0.8853 - val_loss: 0.4293
+
+[AVALIAÇÃO]
+
+   === IMDB PT-BR (teste) (3000 textos) ===
+   Acurácia: 0.886  IC95% [0.874, 0.897]  | linha de base: 0.503
+   F1 macro: 0.886  (média do F1 das duas classes; não é inflado por desbalanceamento)
+   Negativo: precisão 0.905  recall 0.864  (1510 textos)
+   Positivo: precisão 0.868  recall 0.908  (1490 textos)
+   Matriz de confusão (linhas = real, colunas = previsto)
+          prev neg  prev pos
+real neg      1304       206
+real pos       137      1353
+
+   === AdoroCinema (teste) (169 textos) ===
+   Acurácia: 0.864  IC95% [0.804, 0.908]  | linha de base: 0.734
+   F1 macro: 0.834  (média do F1 das duas classes; não é inflado por desbalanceamento)
+   Negativo: precisão 0.712  recall 0.822  (45 textos)
+   Positivo: precisão 0.932  recall 0.879  (124 textos)
+   Matriz de confusão (linhas = real, colunas = previsto)
+          prev neg  prev pos
+real neg        37         8
+real pos        15       109
+
+   === Papo de Cinema (teste) (916 textos) ===
+   Acurácia: 0.754  IC95% [0.725, 0.781]  | linha de base: 0.652
+   F1 macro: 0.735  (média do F1 das duas classes; não é inflado por desbalanceamento)
+   Negativo: precisão 0.634  recall 0.696  (319 textos)
+   Positivo: precisão 0.829  recall 0.786  (597 textos)
+   Matriz de confusão (linhas = real, colunas = previsto)
+          prev neg  prev pos
+real neg       222        97
+real pos       128       469
+
+   === Ouro: Rapadura + Omelete (50 textos) ===
+   Acurácia: 0.680  IC95% [0.542, 0.792]  | linha de base: 0.560
+   F1 macro: 0.632  (média do F1 das duas classes; não é inflado por desbalanceamento)
+   Negativo: precisão 0.800  recall 0.364  (22 textos)
+   Positivo: precisão 0.650  recall 0.929  (28 textos)
+   Matriz de confusão (linhas = real, colunas = previsto)
+          prev neg  prev pos
+real neg         8        14
+real pos         2        26
+
+   Resultados salvos em dados/resultados/bilstm__imdb.json

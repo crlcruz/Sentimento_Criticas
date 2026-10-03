@@ -1,0 +1,115 @@
+{
+  "modelo": "bilstm",
+  "cenario": "imdb+nativo",
+  "info": {
+    "n_treino": 37638,
+    "epocas_rodadas": 5,
+    "melhor_val_loss": 0.35745057463645935,
+    "minutos_treino": 1.6,
+    "parametros": 1350209,
+    "batch": 32,
+    "paciencia": 3
+  },
+  "resultados": [
+    {
+      "conjunto": "IMDB PT-BR (teste)",
+      "n": 3000,
+      "acuracia": 0.8773333333333333,
+      "ic95": [
+        0.8651090830456779,
+        0.8885924436926161
+      ],
+      "linha_base": 0.5033333333333334,
+      "f1_macro": 0.8773193750044449,
+      "precisao_neg": 0.8751642575558476,
+      "recall_neg": 0.8821192052980132,
+      "precisao_pos": 0.8795669824086604,
+      "recall_pos": 0.87248322147651,
+      "matriz_confusao": [
+        [
+          1332,
+          178
+        ],
+        [
+          190,
+          1300
+        ]
+      ]
+    },
+    {
+      "conjunto": "AdoroCinema (teste)",
+      "n": 169,
+      "acuracia": 0.8994082840236687,
+      "ic95": [
+        0.8448180562374072,
+        0.9362439103261979
+      ],
+      "linha_base": 0.7337278106508875,
+      "f1_macro": 0.8721804511278195,
+      "precisao_neg": 0.8043478260869565,
+      "recall_neg": 0.8222222222222222,
+      "precisao_pos": 0.9349593495934959,
+      "recall_pos": 0.9274193548387096,
+      "matriz_confusao": [
+        [
+          37,
+          8
+        ],
+        [
+          9,
+          115
+        ]
+      ]
+    },
+    {
+      "conjunto": "Papo de Cinema (teste)",
+      "n": 916,
+      "acuracia": 0.7019650655021834,
+      "ic95": [
+        0.6715504742581199,
+        0.7306926945657298
+      ],
+      "linha_base": 0.6517467248908297,
+      "f1_macro": 0.6997316330757731,
+      "precisao_neg": 0.5444015444015444,
+      "recall_neg": 0.8840125391849529,
+      "precisao_pos": 0.907035175879397,
+      "recall_pos": 0.6046901172529313,
+      "matriz_confusao": [
+        [
+          282,
+          37
+        ],
+        [
+          236,
+          361
+        ]
+      ]
+    },
+    {
+      "conjunto": "Ouro: Rapadura + Omelete",
+      "n": 50,
+      "acuracia": 0.68,
+      "ic95": [
+        0.5418944286372394,
+        0.792419559060006
+      ],
+      "linha_base": 0.56,
+      "f1_macro": 0.6666666666666666,
+      "precisao_neg": 0.6666666666666666,
+      "recall_neg": 0.5454545454545454,
+      "precisao_pos": 0.6875,
+      "recall_pos": 0.7857142857142857,
+      "matriz_confusao": [
+        [
+          12,
+          10
+        ],
+        [
+          6,
+          22
+        ]
+      ]
+    }
+  ]
+}

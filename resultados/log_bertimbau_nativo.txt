@@ -1,0 +1,45 @@
+2026-09-26 22:46:53.513445: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+   GPU: sim | precisão: mixed_float16
+
+   Cenário: nativo — Treino só no corpus nativo (Papo de Cinema + AdoroCinema)
+   Treino: 3,192 textos | Validação: 1,278
+   Composição do treino por fonte:
+      Papo de Cinema: 2,942
+      AdoroCinema: 250
+   Conjuntos de teste:
+      IMDB PT-BR (teste): 3,000 textos (50% positivos)
+      AdoroCinema (teste): 169 textos (73% positivos)
+      Papo de Cinema (teste): 916 textos (65% positivos)
+      Ouro: Rapadura + Omelete: 50 textos (56% positivos)
+Traceback (most recent call last):
+  File "/content/projeto/treinar_bertimbau.py", line 209, in <module>
+    main()
+    ~~~~^^
+  File "/content/projeto/treinar_bertimbau.py", line 156, in main
+    modelo, preproc = construir(args)
+                      ~~~~~~~~~^^^^^^
+  File "/content/projeto/treinar_bertimbau.py", line 100, in construir
+    backbone = carregar_backbone(PASTA_BERT)
+  File "/content/projeto/treinar_bertimbau.py", line 88, in carregar_backbone
+    convert_bert.convert_weights(backbone, loader, config)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/keras_hub/src/utils/transformers/convert_bert.py", line 37, in convert_weights
+    loader.port_weight(
+    ~~~~~~~~~~~~~~~~~~^
+        keras_variable=backbone.get_layer("embeddings_layer_norm").beta,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        hf_weight_key="bert.embeddings.LayerNorm.beta",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/content/projeto/treinar_bertimbau.py", line 80, in port_tolerante
+    original(keras_variable=keras_variable, hf_weight_key=hf_weight_key, hook_fn=hook_fn)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/keras_hub/src/utils/transformers/safetensor_utils.py", line 89, in port_weight
+    hf_tensor = self.get_tensor(hf_weight_key)
+  File "/usr/local/lib/python3.13/dist-packages/keras_hub/src/utils/transformers/safetensor_utils.py", line 86, in get_tensor
+    return file.get_tensor(full_key)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+safetensors._safetensors_rust.SafetensorError: File does not contain tensor bert.embeddings.LayerNorm.beta
